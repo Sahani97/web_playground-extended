@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { fetchBearData } from '../utils/apiUtils';
 import { extractBears } from '../utils/bearUtils';
 
 interface Bear {
@@ -21,22 +20,9 @@ function MoreBears(): React.JSX.Element {
       setLoading(true);
       setError(null);
 
-      const params = {
-        action: 'parse',
-        page: 'List_of_ursids',
-        prop: 'wikitext',
-        section: 3,
-        format: 'json',
-        origin: '*',
-      };
-
       try {
-        const data = await fetchBearData(params);
-        const wikitext = data.parse?.wikitext?.['*'];
-        if (wikitext) {
-          const extractedBears = await extractBears(wikitext); // Funktion liefert Bear[]
-          setBears(extractedBears); // State aktualisieren
-        }
+        const extractedBears = await extractBears(); // Backend-Daten holen
+        setBears(extractedBears); // State aktualisieren
       } catch (err) {
         console.error('Error fetching bears:', err);
         setError('Failed to load bear data. Please try again later.');
