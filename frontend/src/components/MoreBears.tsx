@@ -21,8 +21,8 @@ function MoreBears(): React.JSX.Element {
       setError(null);
 
       try {
-        const extractedBears = await extractBears(); // Backend-Daten holen
-        setBears(extractedBears); // State aktualisieren
+        const extractedBears = await extractBears(); 
+        setBears(extractedBears); 
       } catch (err) {
         console.error('Error fetching bears:', err);
         setError('Failed to load bear data. Please try again later.');
